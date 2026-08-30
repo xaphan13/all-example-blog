@@ -1,0 +1,67 @@
+{% extends "layout/base.html" %}
+
+{% from "includes/meta.html" import meta with context %}
+{% from "includes/thumbnail.html" import thumbnail with context %}
+
+{% block meta %}
+  {{ meta() }}
+{% endblock meta %}
+
+{% block title %}
+  {{ author.full_name }}
+{% endblock title %}
+
+{% block content %}
+  <div class="px-5 sm:px-10 md:w-[768px] mx-auto divide-y">
+    <div class="py-24">
+      <a href="{{ url_for('author') }}"
+         class="space-y-3 hover:text-neutral-400">
+        <h1 class="font-black text-5xl leading-tight">{{ author.full_name }}</h1>
+        <h2 class="font-bold text-2xl">{{ author.role }}</h2>
+      </a>
+    </div>
+    <div>
+      <h2 class="font-extrabold text-3xl mt-4">Sections</h2>
+      <ul class="mt-12 mb-3 space-y-3 flex flex-col items-center">
+        <li class="md:max-w-[768px] sm:max-h-[282px]">
+          <a href="{{ url_for('post_list') }}"
+             class="flex flex-col sm:flex-row bg-neutral-900 rounded-3xl overflow-hidden">
+            {{ thumbnail(urls=homepage.posts_section.thumbnail) }}
+            <div class="h-[148px] sm:h-auto sm:w-2/5 m-8">
+              <div class="space-y-2">
+                <div>
+                  <span class="bg-neutral-800 px-2 py-1 rounded-full text-sm">{{ homepage.posts_section.entries }} revelations</span>
+                </div>
+                <div>
+                  <h2 class="font-extrabold text-2xl line-clamp-1 w-[211.2px]">Revelations</h2>
+                  <p class="text-lg line-clamp-3 sm:line-clamp-4">
+                    {{ homepage.posts_section.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="md:max-w-[768px] sm:max-h-[282px]">
+          <a href="{{ url_for('project_list') }}"
+             class="flex flex-col sm:flex-row bg-neutral-900 rounded-3xl overflow-hidden">
+            {{ thumbnail(urls=homepage.projects_section.thumbnail) }}
+            <div class="h-[148px] sm:h-auto sm:w-2/5 m-8">
+              <div class="space-y-2">
+                <div>
+                  <span class="bg-neutral-800 px-2 py-1 rounded-full text-sm">{{ homepage.projects_section.entries }} projects</span>
+                </div>
+                <div>
+                  <h2 class="font-extrabold text-2xl line-clamp-1 w-[211.2px]">Projects</h2>
+                  <p class="text-lg line-clamp-3 sm:line-clamp-4">
+                    {{ homepage.projects_section.description }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock content %}

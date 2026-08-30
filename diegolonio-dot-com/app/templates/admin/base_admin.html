@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{# Base de las páginas del admin: carga admin.css y deja un bloque
+   admin_head para el CSS específico de cada módulo (manager, editor...) #}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/admin/admin.css?v={{ static_v }}">
+{% block admin_head %}{% endblock %}
+{% endblock %}

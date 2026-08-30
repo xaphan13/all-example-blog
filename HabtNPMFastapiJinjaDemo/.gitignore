@@ -1,0 +1,24 @@
+# Виртуальное окружение
+venv/
+.venv/
+env/
+
+# Байт-код Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Настройки окружения
+.env
+
+# Кэш инструментов
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.idea/
+.vscode/
+
+# ОС
+.DS_Store

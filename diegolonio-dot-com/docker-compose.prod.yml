@@ -1,0 +1,55 @@
+# Producción (servidor casero): app + Postgres.
+#
+# El túnel de Cloudflare corre en el host y apunta a http://localhost:8000,
+# por eso la app solo se publica en 127.0.0.1 — nadie más en la red la ve.
+# Lo persistente vive fuera de los contenedores: la BD en el volumen
+# pgdata y las imágenes subidas en ./media (bind mount).
+#
+# Uso:  docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: diegolonio
+      # :? corta el arranque si falta la variable en .env (evita
+      # levantar producción con un password vacío por accidente)
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: diegolonio
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # La app espera a que Postgres acepte conexiones, no solo a que
+    # el contenedor exista (depends_on: service_healthy de abajo)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diegolonio -d diegolonio"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      # Compose interpola ${POSTGRES_PASSWORD} desde .env: el password
+      # se define una sola vez. "db" es el hostname del servicio de arriba.
+      DATABASE_URL: postgresql://diegolonio:${POSTGRES_PASSWORD}@db:5432/diegolonio
+      SECRET_KEY: ${SECRET_KEY:?define SECRET_KEY en .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    # Aplica las migraciones pendientes y arranca el servidor.
+    # El runner es idempotente: si no hay nada pendiente, no hace nada.
+    command: >
+      sh -c "python migrations/run_migrations.py &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000
+             --proxy-headers --forwarded-allow-ips='*'"
+    ports:
+      # Solo localhost: la única puerta de entrada es el túnel.
+      # APP_PORT permite cambiar el puerto del host si 8000 está ocupado.
+      - "127.0.0.1:${APP_PORT:-8000}:8000"
+    volumes:
+      - ./media:/srv/diegolonio/media
+
+volumes:
+  pgdata:

@@ -1,0 +1,110 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}{{ "Edit post" if post else "New post" }} | Diego Villegas{% endblock %}
+
+{% block admin_head %}
+{# post.css + pygments.css: el preview se ve EXACTAMENTE como la página pública #}
+<link rel="stylesheet" href="/static/css/post.css?v={{ static_v }}">
+<link rel="stylesheet" href="/static/css/pygments.css?v={{ static_v }}">
+<link rel="stylesheet" href="/static/css/admin/editor.css?v={{ static_v }}">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="admin-header">
+        <h1>{{ "Edit post" if post else "New post" }}</h1>
+        <div class="admin-actions">
+            <a class="btn" href="/admin">&larr; Back to posts</a>
+        </div>
+    </div>
+
+    <form class="admin-form" method="post"
+          action="{{ '/admin/posts/%d/edit' | format(post.id) if post else '/admin/posts/new' }}">
+
+        <div class="form-grid">
+            <div class="form-field">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required
+                       value="{{ post.title if post else '' }}">
+            </div>
+
+            <div class="form-field">
+                <label for="slug">Slug <span class="label-hint">(empty = generated from title)</span></label>
+                <input type="text" id="slug" name="slug"
+                       value="{{ post.slug if post else '' }}">
+            </div>
+
+            <div class="form-field form-field-full">
+                <label for="summary">Summary</label>
+                <textarea id="summary" name="summary" rows="1"
+                          class="summary-textarea">{{ post.summary if post else '' }}</textarea>
+            </div>
+
+            <div class="form-field">
+                <label for="cover_image">Cover image <span class="label-hint">(shown on the home cards)</span></label>
+                {# Sin cover: input de URL (editable, acepta arrastrar una imagen)
+                   + botón Choose. Con cover: el input se oculta (sigue mandando
+                   el valor en el form) y en su lugar hay un chip con el nombre
+                   del archivo, su × para quitarla y un preview flotante al
+                   pasar el mouse. editor.js sincroniza todo #}
+                <div class="cover-field">
+                    <input type="text" id="cover_image" name="cover_image"
+                           placeholder="URL, or drop / choose an image"
+                           value="{{ post.cover_image or '' if post else '' }}">
+                    <span class="cover-chip" id="cover-chip" hidden>
+                        <span class="cover-name" id="cover-name"></span>
+                        <button type="button" id="cover-clear" aria-label="Remove cover image">&times;</button>
+                        <span class="cover-popover"><img id="cover-popover-img" alt="Cover preview"></span>
+                    </span>
+                    <button type="button" id="cover-choose" class="btn">Choose&hellip;</button>
+                    <input type="file" id="cover-file" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="tags-entry">Tags <span class="label-hint">(comma or Enter adds a tag)</span></label>
+                {# El input oculto es lo que viaja en el form, con el formato de
+                   siempre: "ml, python". Los chips y el input de escritura son
+                   solo interfaz; editor.js los sincroniza #}
+                <div class="tags-field" id="tags-field">
+                    <input type="hidden" id="tags" name="tags" value="{{ tags_str or '' }}">
+                    <input type="text" id="tags-entry" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="editor-pane">
+            {# Un solo panel: los tabs alternan entre editar y previsualizar #}
+            <div class="editor-toolbar">
+                <button type="button" id="tab-edit" class="btn editor-tab active">Edit</button>
+                <button type="button" id="tab-preview" class="btn editor-tab">Preview</button>
+                <span class="label-hint">drag &amp; drop or paste images into the text</span>
+            </div>
+
+            <textarea id="content_md" name="content_md"
+                      class="content-textarea">{{ post.content_md if post else '' }}</textarea>
+
+            {# post-content: el preview hereda los estilos de la página pública.
+               Empieza oculto con el atributo nativo hidden; el JS lo alterna #}
+            <div id="preview" class="editor-preview post-content" hidden></div>
+        </div>
+
+        <div class="form-check">
+            <input type="checkbox" id="published" name="published" value="true"
+                   {{ "checked" if post and post.published }}>
+            <label for="published">Published</label>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save</button>
+            <a class="btn" href="/admin">Cancel</a>
+        </div>
+    </form>
+</section>
+
+<script src="/static/js/editor.js?v={{ static_v }}"></script>
+{% endblock %}

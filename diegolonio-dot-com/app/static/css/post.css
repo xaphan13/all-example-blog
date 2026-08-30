@@ -1,0 +1,261 @@
+/* =========================================================
+   post.css — página de lectura de una entrada.
+   Portado de estilo.css del sitio anterior (Go): cabecera del
+   post, código One Dark Pro, tablas, imágenes, math, citas,
+   enlaces del contenido y navegación anterior/siguiente.
+   ========================================================= */
+
+/* =========================================
+   1. CABECERA DEL POST
+   ========================================= */
+.post-header {
+    display: block !important;
+    margin-bottom: 2rem;
+    text-align: left;
+    border-bottom: 1px solid transparent; /* Reserva espacio */
+}
+
+.post-header h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.post-meta {
+    color: var(--meta);
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+    margin-bottom: 0;
+}
+
+/* Tags junto a la fecha: botoncitos con enlace a /tags/{slug}.
+   lowercase por CSS: cubre también tags viejos guardados con mayúsculas */
+.post-tag {
+    display: inline-block;
+    padding: 0.1rem 0.6rem;
+    font-size: 0.8rem;
+    text-transform: lowercase;
+    color: var(--accent);
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.post-tag:hover {
+    color: #1e293b; /* Casi negro al hover, como los enlaces del contenido */
+    border-color: var(--accent);
+}
+
+/* =========================================
+   2. BLOCKQUOTES
+   ========================================= */
+blockquote {
+    border-left: 4px solid var(--accent);
+    background-color: #f8fafc; /* Gris azulado muy pálido */
+    color: #475569;
+    font-style: italic;
+    font-size: 1.05rem;
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { margin: 0; }
+
+/* =========================================
+   3. CÓDIGO (ONE DARK PRO)
+   ========================================= */
+pre {
+    background-color: var(--onedark-bg) !important;
+    color: #abb2bf;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; /* Tamaño fijo móvil */
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.5;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+pre code {
+    font-family: inherit;
+    font-size: inherit !important;
+    color: inherit;
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Números de línea (Pygments linenos="inline"): grises y no
+   seleccionables, para que copiar el código no se los lleve */
+pre .linenos {
+    color: #4b5263; /* gris del tema One Dark */
+    padding-right: 1rem;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Código Inline */
+p code, li code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background-color: #f1f5f9; /* Slate 100 */
+    color: #db2777;
+    padding: 2px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+/* Scrollbar en Bloques de Código */
+pre { scrollbar-color: #4b5263 #282c34; }
+pre::-webkit-scrollbar-track { background-color: var(--onedark-bg); border-radius: 0 0 8px 8px; }
+pre::-webkit-scrollbar-thumb { background-color: #4b5263; border: 2px solid var(--onedark-bg); }
+
+/* =========================================
+   4. TABLAS
+   ========================================= */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 12px 15px;
+}
+
+thead tr {
+    background-color: #f8fafc;
+    border-bottom: 2px solid var(--border-color);
+}
+
+th { font-weight: 600; text-align: left; color: var(--text); }
+tbody tr:hover { background-color: #f8fafc; }
+
+/* =========================================
+   5. IMÁGENES & MEDIA
+   ========================================= */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 6px;
+}
+
+/* Videos embebidos con raw HTML (nuevo, mismo lenguaje visual) */
+video, iframe {
+    max-width: 100%;
+    display: block;
+    margin: 2rem auto;
+    border: 0;
+    border-radius: 6px;
+}
+
+/* =========================================
+   6. MATEMÁTICAS (KATEX)
+   ========================================= */
+.katex-display {
+    display: block;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    margin: 1.5em 0;
+    -webkit-overflow-scrolling: touch;
+}
+.katex { font-size: 1.1em; }
+
+/* =========================================
+   7. NAVEGACIÓN INTERNA POST
+   ========================================= */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.nav-link { display: flex; flex-direction: column; max-width: 45%; }
+.nav-link.prev { text-align: left; }
+.nav-link.next { text-align: right; }
+
+.nav-link small {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--meta);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.nav-link a {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1.3;
+    transition: color 0.2s;
+}
+
+.nav-link a:hover { color: var(--accent); }
+
+/* =========================================
+   8. ENLACES EN CONTENIDO (HIGHLIGHTER GRIS)
+   ========================================= */
+.post-content p a,
+.post-content li a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.3); /* Línea gris sutil */
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 0 2px;
+    margin: 0 -2px;
+    border-radius: 3px;
+}
+
+.post-content p a:hover,
+.post-content li a:hover {
+    color: #1e293b; /* Casi negro al hover */
+    background-color: rgba(226, 232, 240, 0.8); /* Fondo gris claro tipo marcador */
+    border-bottom-color: transparent;
+}
+
+/* =========================================
+   9. RESPONSIVE (MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+    pre {
+        font-size: 13px;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .post-navigation {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .nav-link {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .nav-link.next {
+        text-align: center; /* En móvil centramos todo */
+    }
+}

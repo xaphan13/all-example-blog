@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Diego Villegas{% endblock %}
+{% block description %}Search posts on diegolonio.{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/home.css?v={{ static_v }}">
+<link rel="stylesheet" href="/static/css/search.css?v={{ static_v }}">
+{% endblock %}
+
+{% block content %}
+<section class="search-page">
+    <header class="listing-header">
+        <h1>Search</h1>
+    </header>
+
+    <form class="search-form" method="get" action="/search">
+        <input type="search" name="q" value="{{ q }}" placeholder="Search posts..."
+               aria-label="Search posts" autofocus>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results is not none %}
+    <p class="listing-subtitle">
+        {{ results | length }} result{{ "s" if results | length != 1 }} for &ldquo;{{ q }}&rdquo;
+    </p>
+
+    {% if results %}
+    {% with posts = results %}{% include "_post_cards.html" %}{% endwith %}
+    {% else %}
+    <p class="empty-note">No results. Try different keywords.</p>
+    {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}404 | Diego Villegas{% endblock %}
+{% block description %}Page not found.{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/search.css?v={{ static_v }}">
+{% endblock %}
+
+{% block content %}
+<section class="error-page">
+    <h1>404</h1>
+    <p>Page not found.</p>
+    <a href="/" class="back-link">&larr; Back home</a>
+</section>
+{% endblock %}

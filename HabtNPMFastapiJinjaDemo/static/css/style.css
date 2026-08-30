@@ -1,0 +1,7 @@
+/* Свой CSS поверх Tailwind.
+   Tailwind покрывает основную верстку, сюда выносим только то,
+   чего нет в утилитах или что хочется задать глобально. */
+
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

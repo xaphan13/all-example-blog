@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    container_name: npm-python-demo
+    restart: unless-stopped
+    environment:
+      # Слушаем все интерфейсы внутри контейнера, иначе сервис
+      # будет недоступен другим контейнерам в сети
+      HOST: 0.0.0.0
+      PORT: 8000
+      # В контейнере reload не нужен
+      DEBUG: "false"
+    networks:
+      - internal
+    # Порты наружу намеренно НЕ пробрасываем (нет секции ports):
+    # сервис доступен только внутри сети internal по адресу app:8000
+
+networks:
+  internal:
+    external: true

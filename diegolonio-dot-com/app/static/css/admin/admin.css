@@ -1,0 +1,181 @@
+/* =========================================================
+   admin.css — base compartida de TODO el panel de admin
+   (cabecera, botones, formularios). Módulo nuevo siguiendo
+   el lenguaje visual del sitio: variables de base.css,
+   Rubik para texto y JetBrains Mono para lo "técnico".
+   ========================================================= */
+
+/* =========================================
+   1. CABECERA DE PÁGINA ADMIN
+   ========================================= */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.admin-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-actions form { margin: 0; }
+
+.admin-user {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--meta);
+    margin-right: 0.5rem;
+}
+
+/* =========================================
+   2. BOTONES
+   ========================================= */
+
+/* Altura única para todos los controles de una línea del admin
+   (botones, inputs, chip de la portada). <a>, <button> e <input>
+   calculan su caja distinto por defecto; fijar la altura con
+   border-box los iguala a todos. */
+:root {
+    --control-h: 2.5rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--control-h);
+    padding: 0 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1;
+    color: var(--text);
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: #f8fafc;
+}
+
+.btn-primary {
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: var(--text);
+    border-color: var(--text);
+}
+
+.btn-danger:hover {
+    color: #b91c1c;
+    border-color: #fecaca;
+    background-color: #fef2f2;
+}
+
+.btn-small {
+    height: 2rem;
+    padding: 0 0.7rem;
+    font-size: 0.75rem;
+}
+
+/* =========================================
+   3. FORMULARIOS DEL ADMIN
+   ========================================= */
+.admin-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-form label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+}
+
+.label-hint {
+    font-weight: 400;
+    color: var(--meta);
+}
+
+.admin-form input[type="text"],
+.admin-form textarea {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.2s ease;
+}
+
+/* Los campos de una línea miden lo mismo que los botones */
+.admin-form input[type="text"] {
+    box-sizing: border-box;
+    height: var(--control-h);
+    padding: 0 0.8rem;
+}
+
+.admin-form textarea {
+    padding: 0.6rem 0.8rem;
+}
+
+.admin-form input[type="text"]:focus,
+.admin-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* El markdown se escribe en monospace, como código */
+.admin-form textarea.content-textarea {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.form-check label { margin: 0; }
+.form-check input { accent-color: var(--accent); }
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+/* =========================================
+   4. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

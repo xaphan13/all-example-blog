@@ -1,0 +1,201 @@
+/* =========================================================
+   about.css — página About: bio, foto de perfil, tech stack
+   y tarjetas de proyectos. Portado de estilo.css del sitio
+   anterior (Go), sección 17 + reglas responsive de la 18;
+   la sección Projects es nueva pero sigue el mismo lenguaje
+   visual (paleta slate, radios 12px, hovers con elevación).
+   ========================================================= */
+
+/* =========================================
+   1. PÁGINA ABOUT (portado textual)
+   ========================================= */
+
+.about-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Cabecera del Perfil */
+.profile-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.profile-img {
+    /* --- Propiedades Base (Tamaño y Forma) --- */
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover; /* Evita que se deforme la cara */
+
+    /* Borde y Posición */
+    border: 4px solid var(--accent);
+    display: block;
+    margin: 0 auto 1.5rem auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+    /* --- LA ROTACIÓN --- */
+    /* Gira 7 grados a la izquierda. Cambia el número si quieres más o menos. */
+    transform: rotate(-25deg);
+
+    /* Transición suave para el efecto hover */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto "rebote" sutil */
+}
+
+/* --- BONUS: Efecto al pasar el mouse --- */
+.profile-img:hover {
+    /* Se endereza (0deg) y crece un poquito (scale 1.05) */
+    transform: rotate(0deg) scale(1.05);
+
+    /* La sombra se hace más grande para dar efecto 3D */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+
+    /* Opcional: El borde cambia de color */
+    /* border-color: #fff; */
+}
+
+.profile-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-family: 'Fira Code', monospace; /* Monospaced para el subtítulo */
+    color: var(--meta);
+    font-size: 0.9rem;
+}
+
+/* Contenido de texto */
+.about-content h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.about-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+/* Badges de tecnologías estilo GitHub README (imágenes de shields.io,
+   ver about.html). Reemplaza a los recuadros .tech-grid del sitio viejo.
+   Cada grupo es una fila: la etiqueta a la izquierda y sus badges al lado. */
+.tech-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;  /* si no caben, los badges bajan bajo la etiqueta */
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.tech-row h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    white-space: nowrap;
+}
+
+.tech-row h3::after {
+    content: ":";
+}
+
+.tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.tech-badges img {
+    height: 28px; /* altura estándar de style=for-the-badge */
+    transition: transform 0.2s ease;
+}
+
+.tech-badges img:hover {
+    transform: translateY(-2px); /* Se levanta un pelín, como el resto del sitio */
+}
+
+/* =========================================
+   2. PROYECTOS (sección nueva)
+   ========================================= */
+
+/* Grid de tarjetas: dos columnas que colapsan a una en pantallas chicas */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Tarjeta: enlace completo al repo, mismo lenguaje visual que .post-card */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+
+    text-decoration: none;
+    color: inherit;
+
+    transition: all 0.2s ease-out;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+}
+
+/* Cabecera de la tarjeta: icono + nombre */
+.project-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.project-card-header i {
+    font-size: 1.5rem;
+    color: #334155; /* Gris oscuro (Slate 700), igual que los tech-item */
+    transition: color 0.2s ease-out;
+}
+
+.project-card:hover .project-card-header i {
+    color: var(--accent);
+}
+
+.project-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a; /* Casi negro (Slate 900) */
+    margin: 0;
+}
+
+.project-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--meta);
+    margin: 0;
+}
+
+/* =========================================
+   3. RESPONSIVE (MÓVIL) — portado textual
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .profile-header h1 {
+        font-size: 2rem;   /* Bajamos el título del About */
+    }
+
+    /* --- ABOUT --- */
+    .profile-img {
+        width: 130px; /* Un poco más chica la foto */
+        height: 130px;
+    }
+}

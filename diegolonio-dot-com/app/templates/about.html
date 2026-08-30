@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}About | Diego Villegas{% endblock %}
+{% block description %}Systems Engineering student, passionate about C, Linux and Machine Learning.{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="/static/css/about.css?v={{ static_v }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+{% endblock %}
+
+{% block content %}
+<section class="about-container">
+    <div class="profile-header">
+        <img src="/static/img/perfil.jpg" alt="Diego's photo" class="profile-img">
+
+        <h1>Diego Villegas</h1>
+        <p class="tagline">Systems Engineering Student @ ESCOM - IPN</p>
+    </div>
+
+    <div class="about-content">
+        <p>
+            I'm currently in the final semesters of the <strong>Computer Systems Engineering</strong> program at ESCOM.
+        </p>
+        <p>
+            My professional goal is to become a <strong>Machine Learning Engineer</strong>, blending my passion for
+            mathematics and computing.
+        </p>
+
+        <h2>Tech Stack</h2>
+
+        {# Badges estilo GitHub README, generados por shields.io.
+           Formato: /badge/{Nombre}-{ColorDeMarca}?style=for-the-badge&logo={slug}
+           (- literal se escribe --, / es %2F, + es %2B) #}
+
+        <div class="tech-row">
+            <h3>Languages</h3>
+            <div class="tech-badges">
+            <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" loading="lazy">
+            <img src="https://img.shields.io/badge/C%2FC%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C/C++" loading="lazy">
+            <img src="https://img.shields.io/badge/SQL-336791?style=for-the-badge" alt="SQL" loading="lazy">
+            </div>
+        </div>
+
+        <div class="tech-row">
+            <h3>ML, Data & AI</h3>
+            <div class="tech-badges">
+            <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" loading="lazy">
+            <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" loading="lazy">
+            <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge" alt="Matplotlib" loading="lazy">
+            <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn" loading="lazy">
+            </div>
+        </div>
+
+        <div class="tech-row">
+            <h3>Web</h3>
+            <div class="tech-badges">
+            <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" loading="lazy">
+            <img src="https://img.shields.io/badge/CSS-663399?style=for-the-badge&logo=css&logoColor=white" alt="CSS" loading="lazy">
+            <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" loading="lazy">
+            </div>
+        </div>
+
+        <div class="tech-row">
+            <h3>Databases & Tools</h3>
+            <div class="tech-badges">
+            <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" loading="lazy">
+            <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" loading="lazy">
+            <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" loading="lazy">
+            <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" loading="lazy">
+            <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" loading="lazy">
+            </div>
+        </div>
+
+        <h2>Projects</h2>
+
+        <div class="project-grid">
+            {% for project in projects %}
+            <a class="project-card" href="{{ project.url }}" target="_blank" rel="noopener">
+                <div class="project-card-header">
+                    <i class="{{ project.icon }}"></i>
+                    <h3 class="project-name">{{ project.name }}</h3>
+                </div>
+                <p class="project-description">{{ project.description }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

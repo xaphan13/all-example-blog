@@ -1,0 +1,169 @@
+/* =========================================================
+   home.css — página de inicio (listado de entradas).
+   Portado de estilo.css del sitio anterior (Go): intro,
+   tarjetas de posts (post-grid) y paginación, con sus
+   ajustes responsive. Lo global vive en base.css.
+   ========================================================= */
+
+/* =========================================
+   1. INTRO
+   ========================================= */
+.intro h1 { font-size: 2.5rem; margin-bottom: 0.5rem; letter-spacing: -1px; }
+.intro p { font-size: 1.1rem; color: #64748b; max-width: 650px; line-height: 1.6; }
+
+/* =========================================
+   2. TARJETAS (HOME) - ESTILO GREY
+   ========================================= */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.post-card-link { text-decoration: none; color: inherit; display: block; }
+
+.post-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent); /* Se pone gris oscuro al hover */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* Sombra elegante */
+}
+
+.card-image-container {
+    height: 190px;
+    width: 100%;
+    background-color: #f1f5f9;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+}
+
+.card-text-wrapper {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-content { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.post-card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text);
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.card-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--meta);
+}
+
+.card-desc {
+    font-size: 0.95rem;
+    color: #64748b; /* Slate 500 */
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-footer {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-align: right;
+}
+
+.post-card:hover .card-footer span { text-decoration: underline; }
+
+/* =========================================
+   3. PAGINACIÓN
+   ========================================= */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.btn-page {
+    text-decoration: none;
+    color: var(--text);
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.2s;
+    background-color: #fff;
+}
+
+a.btn-page:hover {
+    border-color: var(--accent);
+    background-color: #f8fafc;
+    color: var(--accent);
+}
+
+.btn-page.disabled {
+    color: #cbd5e1;
+    border-color: #f1f5f9;
+    cursor: default;
+    pointer-events: none;
+}
+
+.page-info { color: var(--meta); font-size: 0.85rem; }
+
+/* =========================================
+   4. RESPONSIVE / MEDIA QUERIES (MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+
+    .intro h1 {
+        font-size: 2rem;
+    }
+
+    .post-grid {
+        gap: 1.5rem; /* Menos espacio entre tarjetas */
+        /* Forzamos que en móviles muy pequeños la tarjeta ocupe todo el ancho */
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        flex-direction: column; /* Botones uno arriba del otro si es muy angosto */
+        gap: 1rem;
+    }
+
+    .btn-page {
+        width: 100%; /* Botones anchos para tocar fácil con el dedo */
+        text-align: center;
+    }
+}

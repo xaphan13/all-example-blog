@@ -1,0 +1,27 @@
+{# Partial compartido: rejilla de tarjetas de posts (markup del home.html del
+   sitio viejo). Espera la variable `posts`; lo estila home.css.
+   Lo usan index.html, tag.html y search.html. #}
+<div class="post-grid">
+    {% for post in posts %}
+    <a href="/post/{{ post.slug }}" class="post-card-link">
+        <article class="post-card">
+            <div class="card-image-container">
+                {% if post.cover_image %}
+                <img src="{{ post.cover_image }}" alt="Cover of {{ post.title }}" loading="lazy">
+                {% endif %}
+            </div>
+
+            <div class="card-text-wrapper">
+                <div class="card-content">
+                    <h3>{{ post.title }}</h3>
+                    <span class="card-date">{{ post.published_at | dateformat }}</span>
+                    <p class="card-desc">{{ post.summary }}</p>
+                </div>
+                <div class="card-footer">
+                    <span>Read &rarr;</span>
+                </div>
+            </div>
+        </article>
+    </a>
+    {% endfor %}
+</div>

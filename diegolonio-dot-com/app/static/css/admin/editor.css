@@ -1,0 +1,270 @@
+/* =========================================================
+   editor.css — editor markdown: metadatos en rejilla y un
+   solo panel con toggle Edit/Preview + drop zone de imágenes.
+   Módulo nuevo siguiendo el lenguaje visual del sitio.
+   ========================================================= */
+
+/* =========================================
+   1. METADATOS (title, slug, summary...)
+   ========================================= */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    /* Sin esto, el min-content del contenido (p. ej. los chips de tags, que
+       no se encogen) infla su columna 1fr y desborda el grid por la derecha */
+    min-width: 0;
+}
+
+.form-field-full {
+    grid-column: 1 / -1;
+}
+
+/* Campo de portada: input de URL + botón Choose. Con cover puesta, el
+   input se sustituye por un chip con el nombre del archivo y su × */
+.cover-field {
+    position: relative; /* ancla del preview flotante */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cover-field input[type="text"] {
+    flex: 1;
+    min-width: 0; /* deja encoger el input dentro del flex */
+    margin-bottom: 0;
+}
+
+/* Drop zone activa sobre el input de la portada */
+.cover-field input.dragging {
+    border: 2px dashed var(--accent);
+    background-color: #f8fafc;
+}
+
+/* El toggle input/chip usa el atributo nativo hidden (como el editor) */
+.cover-field [hidden] {
+    display: none !important;
+}
+
+/* Mismas métricas que .btn y los inputs: altura --control-h y radius 6px.
+   flex: 1 → se estira igual que el input de URL (Choose sigue al lado,
+   así el chip sirve también para reemplazar la imagen directamente) */
+.cover-chip {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0; /* permite que el nombre se recorte en vez de desbordar */
+    height: var(--control-h);
+    gap: 0.4rem;
+    padding: 0 0.8rem;
+    font-size: 0.85rem;
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.cover-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* nombres UUID largos se recortan con … */
+    cursor: default;
+}
+
+/* La × del chip: discreta, sin aspecto de botón */
+.cover-chip button {
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--meta);
+    cursor: pointer;
+}
+
+.cover-chip button:hover {
+    color: #b91c1c;
+}
+
+/* Preview flotante: aparece al pasar el mouse sobre el chip */
+.cover-popover {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 10;
+    padding: 0.4rem;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.cover-popover img {
+    display: block;
+    max-width: 320px;
+    max-height: 200px;
+    border-radius: 4px;
+}
+
+.cover-chip:hover .cover-popover {
+    display: block;
+}
+
+/* El summary crece y encoge con el texto (editor.js); sin resize manual.
+   Con una sola línea mide lo mismo que los inputs: el padding vertical
+   centra una línea de 1.5rem dentro de --control-h (contando el borde) */
+.admin-form .summary-textarea {
+    box-sizing: border-box;
+    min-height: var(--control-h);
+    line-height: 1.5rem;
+    padding: calc((var(--control-h) - 1.5rem - 2px) / 2) 0.8rem;
+    overflow: hidden;
+    resize: none;
+}
+
+/* Campo de tags: un "marco" con aspecto de input que contiene los chips
+   y un input desnudo para seguir escribiendo. Una sola línea, misma
+   altura que los demás campos; con muchos tags hace scroll horizontal */
+.tags-field {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-sizing: border-box;
+    height: var(--control-h);
+    padding: 0 0.8rem;
+    overflow-x: auto;
+    scrollbar-width: none; /* scroll sin barra visible (Firefox) */
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-bottom: 1.2rem;
+    cursor: text;
+    transition: border-color 0.2s ease;
+}
+
+.tags-field:focus-within {
+    border-color: var(--accent);
+}
+
+/* Scroll sin barra visible (Chrome/Safari); la rueda y el teclado siguen
+   desplazando los chips */
+.tags-field::-webkit-scrollbar {
+    display: none;
+}
+
+/* El input de escritura pierde su caja: el marco lo pone .tags-field */
+.admin-form .tags-field input[type="text"] {
+    flex: 1;
+    min-width: 6rem;
+    height: auto;
+    padding: 0;
+    border: none;
+    margin-bottom: 0;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0; /* en el scroll horizontal los chips no se aplastan */
+    white-space: nowrap;
+    gap: 0.35rem;
+    padding: 0.15rem 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+/* La × del chip: misma receta que la de la portada */
+.tag-chip button {
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 0.95rem;
+    line-height: 1;
+    color: var(--meta);
+    cursor: pointer;
+}
+
+.tag-chip button:hover {
+    color: #b91c1c;
+}
+
+/* =========================================
+   2. PANEL DEL EDITOR (toggle Edit/Preview)
+   ========================================= */
+.editor-pane {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.2rem;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* en móvil el hint baja de línea sin desbordar */
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Tab activo: se pinta con el accent del sitio */
+.editor-tab.active {
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.editor-toolbar .label-hint {
+    margin-left: auto;
+    font-size: 0.8rem;
+}
+
+.editor-pane .content-textarea {
+    height: 65vh;
+    margin-bottom: 0;
+}
+
+/* Drop zone activa: al arrastrar una imagen encima */
+.editor-pane .content-textarea.dragging {
+    border: 2px dashed var(--accent);
+    background-color: #f8fafc;
+}
+
+/* El preview mide lo mismo que el textarea; con .post-content
+   (post.css + pygments.css) se ve idéntico a la página pública */
+.editor-preview {
+    height: 65vh;
+    overflow-y: auto;
+    padding: 0 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* El toggle usa el atributo nativo hidden; esta regla lo blinda por si
+   algún estilo futuro le pone display a estos elementos */
+.editor-pane [hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   3. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-pane .content-textarea,
+    .editor-preview {
+        height: 50vh;
+    }
+}

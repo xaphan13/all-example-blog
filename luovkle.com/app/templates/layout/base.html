@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon"
+          type="image/png"
+          href="{{ url_for('static', path='icons/favicon.png') }}" />
+    {# SEO #}
+    <meta name="description" content="{{ metadata.description }}" />
+    <meta name="keywords" content="{{ metadata.keywords }}" />
+    <meta name="author" content="{{ metadata.author }}" />
+    <meta name="language" content="{{ metadata.language }}" />
+    <meta name="robots" content="{{ metadata.robots }}" />
+    {# Social Media #}
+    {% block meta %}
+    {% endblock meta %}
+    <title>
+      {% block title %}
+      {% endblock title %}
+    </title>
+    <link href="{{ url_for('static', path='css/styles.css') }}"
+          rel="stylesheet" />
+  </head>
+  <body class="bg-neutral-950 text-neutral-200">
+    <main class="mx-auto">
+      {% block content %}
+      {% endblock content %}
+    </main>
+    {% block scripts %}
+    {% endblock scripts %}
+  </body>
+</html>

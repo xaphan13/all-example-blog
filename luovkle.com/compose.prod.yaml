@@ -1,0 +1,74 @@
+services:
+  www:
+    container_name: www
+    image: localhost/luovklecom_www
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - isolated
+    expose:
+      - 4000
+    restart: on-failure
+    volumes:
+      - static_files:/www/app/static/:ro
+    ulimits:
+      nofile:
+        soft: 128
+        hard: 256
+      nproc:
+        soft: 64
+        hard: 128
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+  caddy:
+    container_name: caddy
+    image: localhost/luovklecom_caddy
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - isolated
+      - public
+    ports:
+      - 0.0.0.0:80:80
+      - 0.0.0.0:443:443
+      - 0.0.0.0:443:443/udp
+    restart: on-failure
+    volumes:
+      - static_files:/srv/static/:ro
+      - caddy_data:/data/
+      - caddy_config:/config/
+    ulimits:
+      nofile:
+        soft: 2048
+        hard: 4096
+      nproc:
+        soft: 64
+        hard: 128
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+networks:
+  isolated:
+    driver: bridge
+    internal: true
+  public:
+    driver: bridge
+    internal: false
+volumes:
+  static_files:
+  caddy_data:
+  caddy_config:

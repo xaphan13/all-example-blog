@@ -1,0 +1,19 @@
+(common) {
+  header /* {
+      -Server
+      -Via
+    }
+}
+
+luovkle.com {
+	encode
+
+	handle_path /static/* {
+		root * /srv/static/
+		file_server browse
+	}
+
+	reverse_proxy www:4000
+
+  import common
+}

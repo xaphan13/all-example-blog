@@ -1,0 +1,83 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Posts | Diego Villegas{% endblock %}
+
+{% block admin_head %}
+<link rel="stylesheet" href="/static/css/admin/manager.css?v={{ static_v }}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <div class="admin-header">
+        <h1>Posts</h1>
+        <div class="admin-actions">
+            <span class="admin-user">{{ username }}</span>
+            <a class="btn btn-primary" href="/admin/posts/new">New post</a>
+            <form method="post" action="/admin/media/cleanup"
+                  onsubmit="return confirm('Delete images that no post uses? Files uploaded in the last hour are kept, in case an open editor still needs them.')">
+                <button class="btn" type="submit">Clean images</button>
+            </form>
+            <form method="post" action="/admin/logout">
+                <button class="btn" type="submit">Sign out</button>
+            </form>
+        </div>
+    </div>
+
+    {% if cleaned is not none %}
+    <p class="cleanup-note">
+        {{ cleaned }} unused image{{ "s" if cleaned != 1 }} deleted.
+    </p>
+    {% endif %}
+
+    {% if posts %}
+    <table class="manager-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Updated</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td class="cell-title">
+                    <a href="/admin/posts/{{ post.id }}/edit">{{ post.title }}</a>
+                    {% if post.published %}
+                    <a class="cell-view" href="/post/{{ post.slug }}" target="_blank" aria-label="View post">
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if post.published %}
+                    <span class="status-badge status-published">Published</span>
+                    {% else %}
+                    <span class="status-badge status-draft">Draft</span>
+                    {% endif %}
+                </td>
+                <td class="cell-date">{{ post.updated_at | dateformat }}</td>
+                <td>
+                    <div class="table-actions">
+                        <a class="btn btn-small" href="/admin/posts/{{ post.id }}/edit">Edit</a>
+                        <form method="post" action="/admin/posts/{{ post.id }}/publish">
+                            <button class="btn btn-small" type="submit">
+                                {{ "Unpublish" if post.published else "Publish" }}
+                            </button>
+                        </form>
+                        <form method="post" action="/admin/posts/{{ post.id }}/delete"
+                              onsubmit="return confirm('Delete “{{ post.title }}”? This cannot be undone.')">
+                            <button class="btn btn-small btn-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="manager-empty">No posts yet. Write the first one!</p>
+    {% endif %}
+</section>
+{% endblock %}

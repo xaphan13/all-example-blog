@@ -1,0 +1,138 @@
+/* =========================================================
+   search.css — búsqueda, páginas de tag y página de error 404.
+   Diseño nuevo con el lenguaje visual del sitio: paleta slate,
+   Rubik para texto, JetBrains Mono para lo "técnico", bordes
+   suaves radius 6px y hovers sutiles hacia var(--accent).
+   ========================================================= */
+
+/* =========================================
+   1. CABECERA DE LISTADOS (tag / search)
+   ========================================= */
+.listing-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.listing-header h1 {
+    margin: 0 0 0.5rem;
+}
+
+.listing-subtitle {
+    color: var(--meta);
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: center;
+    margin: 0 0 2rem;
+}
+
+/* Mensaje discreto cuando no hay posts/resultados */
+.empty-note {
+    color: var(--meta);
+    text-align: center;
+    margin: 3rem 0;
+}
+
+/* =========================================
+   2. FORMULARIO DE BÚSQUEDA
+   ========================================= */
+.search-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 30rem;
+    margin: 0 auto 2.5rem;
+}
+
+.search-form input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-form input[type="search"]::placeholder {
+    color: var(--meta);
+}
+
+.search-form input[type="search"]:focus {
+    border-color: var(--accent);
+}
+
+/* Botón con el mismo look que los .btn-page del sitio viejo */
+.search-form button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-form button:hover {
+    border-color: var(--accent);
+    background-color: #f8fafc;
+    color: var(--accent);
+}
+
+/* =========================================
+   3. PÁGINA 404 (comparte archivo para no
+      crear uno nuevo solo para el error)
+   ========================================= */
+.error-page {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.error-page h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 4rem;
+    color: var(--accent);
+    margin: 0 0 0.5rem;
+}
+
+.error-page p {
+    color: var(--meta);
+    margin: 0 0 2rem;
+}
+
+/* Enlace de vuelta, estilo .btn-page del sitio viejo */
+.error-page .back-link {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--text);
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: #fff;
+    transition: all 0.2s;
+}
+
+.error-page .back-link:hover {
+    border-color: var(--accent);
+    background-color: #f8fafc;
+    color: var(--accent);
+}
+
+/* =========================================
+   4. RESPONSIVE (MÓVIL)
+   ========================================= */
+@media (max-width: 600px) {
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form button {
+        width: 100%;
+    }
+}

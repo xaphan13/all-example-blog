@@ -1,0 +1,14 @@
+# Web-фреймворк
+fastapi==0.137.0
+
+# ASGI-сервер (standard добавляет uvloop, httptools, watchfiles для --reload)
+uvicorn[standard]==0.49.0
+
+# Шаблонизатор
+jinja2==3.1.6
+
+# Настройки приложения через переменные окружения / .env
+pydantic-settings==2.14.1
+
+# Парсинг form-data (нужен FastAPI для обработки HTML-форм)
+python-multipart==0.0.32

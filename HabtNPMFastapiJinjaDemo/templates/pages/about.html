@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} · {{ app_name }}{% endblock %}
+
+{% block content %}
+<article class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+    <h1 class="text-2xl font-bold text-slate-900">{{ title }}</h1>
+    <p class="mt-4 text-slate-600">
+        Это демонстрационный проект для статьи. Он показывает чистую структуру
+        FastAPI-приложения с серверным рендерингом на Jinja2 и стилями Tailwind.
+    </p>
+
+    <h2 class="mt-6 font-semibold text-slate-900">Структура</h2>
+    <ul class="mt-3 space-y-1 text-sm text-slate-600 list-disc list-inside">
+        <li><code class="text-indigo-600">main.py</code> — точка входа, запуск uvicorn</li>
+        <li><code class="text-indigo-600">router.py</code> — агрегатор всех роутеров</li>
+        <li><code class="text-indigo-600">core/</code> — конфиг и настройка шаблонизатора</li>
+        <li><code class="text-indigo-600">routers/</code> — страницы и API</li>
+        <li><code class="text-indigo-600">templates/</code> — шаблоны Jinja2</li>
+        <li><code class="text-indigo-600">static/</code> — CSS и JS</li>
+    </ul>
+</article>
+{% endblock %}

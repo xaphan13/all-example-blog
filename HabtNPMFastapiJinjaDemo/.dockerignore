@@ -1,0 +1,26 @@
+# Виртуальное окружение
+venv/
+.venv/
+env/
+
+# Байт-код Python
+__pycache__/
+*.py[cod]
+
+# Кэш инструментов
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Git и метаданные
+.git/
+.gitignore
+
+# Окружение и документация
+.env
+README.md
+
+# IDE и ОС
+.idea/
+.vscode/
+.DS_Store

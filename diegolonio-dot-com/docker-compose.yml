@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: diegolonio
+      POSTGRES_PASSWORD: diegolonio
+      POSTGRES_DB: diegolonio
+    ports:
+      # 5433 en el host porque el 5432 ya está ocupado por otro Postgres local
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

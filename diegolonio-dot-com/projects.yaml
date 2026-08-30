@@ -1,0 +1,21 @@
+# =========================================================
+# projects.yaml — proyectos destacados que se muestran en /about.
+# Curado a mano: agrega, quita o reordena entradas libremente.
+#
+# Campos de cada proyecto:
+#   name:        nombre del proyecto (título de la tarjeta)
+#   description: descripción corta en inglés (una línea)
+#   url:         enlace al repositorio (se abre en pestaña nueva)
+#   icon:        clase CSS del icono (Font Awesome o Devicon),
+#                p. ej. "fas fa-terminal" o "devicon-python-plain"
+# =========================================================
+
+- name: diegolonio.com
+  description: "This website: FastAPI + PostgreSQL blog with a custom markdown editor"
+  url: https://github.com/diegolonio
+  icon: fas fa-terminal
+
+- name: Gradient Descent from scratch
+  description: Gradient descent explained and implemented in pure Python
+  url: https://github.com/diegolonio
+  icon: fas fa-chart-line

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ app_name }}{% endblock %}</title>
+
+    <!-- Tailwind CSS через CDN — для демки без сборки и npm -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Свой CSS поверх Tailwind -->
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body class="h-full flex flex-col bg-slate-50 text-slate-800">
+
+    {% include "partials/navbar.html" %}
+
+    <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-10">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "partials/footer.html" %}
+
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+</body>
+</html>

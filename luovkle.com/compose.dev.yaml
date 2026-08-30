@@ -1,0 +1,36 @@
+services:
+  www:
+    container_name: www
+    build:
+      context: .
+      target: runner
+      dockerfile: Containerfile
+    user: root
+    ports:
+      - 4000:4000
+    restart: always
+    command: "fastapi dev --port 4000 --host 0.0.0.0 app/main.py"
+    volumes:
+      - ./app/:/www/app/:z
+      - ./content/:/www/content/:z
+      - ./scripts/:/www/scripts/:z
+  styles:
+    container_name: styles
+    build:
+      context: .
+      target: css-builder
+    restart: always
+    command: "pnpm run dev:css"
+    volumes:
+      - ./app/:/www/app/:z
+      - ./scripts/:/www/scripts/:z
+  caddy:
+    container_name: caddy
+    build:
+      context: caddy
+      dockerfile: Containerfile.local
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./app/static/:/srv/static/

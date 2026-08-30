@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/home.css?v={{ static_v }}">
+
+{# Datos estructurados para buscadores (heredado del sitio viejo) #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "diegolonio",
+  "alternateName": ["Diego Villegas", "diegolonio blog"],
+  "url": "{{ base_url }}/",
+  "author": {
+    "@type": "Person",
+    "name": "Diego Villegas",
+    "jobTitle": "Systems Engineering Student"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="intro">
+    <h1>Welcome!</h1>
+    <p>
+        My name is Diego Villegas, I'm a Computer Systems Engineering student
+        (ESCOM/IPN). In this blog I share the knowledge I've gained through my
+        degree and my self-learning.
+    </p>
+</section>
+
+<hr>
+
+<section class="latest-posts">
+    <h2>Latest posts</h2>
+
+    {% include "_post_cards.html" %}
+
+    <div class="pagination">
+        {% if has_prev %}
+            <a href="/?page={{ page - 1 }}" class="btn-page">&larr; Newer</a>
+        {% else %}
+            <span class="btn-page disabled">&larr; Newer</span>
+        {% endif %}
+
+        <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+
+        {% if has_next %}
+            <a href="/?page={{ page + 1 }}" class="btn-page">Older &rarr;</a>
+        {% else %}
+            <span class="btn-page disabled">Older &rarr;</span>
+        {% endif %}
+    </div>
+
+</section>
+{% endblock %}

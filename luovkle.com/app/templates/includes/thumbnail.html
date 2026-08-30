@@ -1,0 +1,17 @@
+{% macro thumbnail(urls) %}
+  <picture class="sm:w-3/5 h-full">
+    {% if urls.avif %}
+      <source srcset="{{ url_for('static', path=urls.avif_url) }}"
+              type="image/avif" />
+    {% endif %}
+    {% if urls.webp %}
+      <source srcset="{{ url_for('static', path=urls.webp_url) }}"
+              type="image/webp" />
+    {% endif %}
+    <img src="{{ url_for('static', path=urls.default_url) }}"
+         alt="banner"
+         width="450"
+         height="300"
+         class="w-full h-full" />
+  </picture>
+{% endmacro %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Diego Villegas{% endblock %}
+
+{% block extra_head %}
+{# admin.css: aporta .btn/.btn-primary y --control-h, compartidos con el panel #}
+<link rel="stylesheet" href="/static/css/admin/admin.css?v={{ static_v }}">
+<link rel="stylesheet" href="/static/css/admin/login.css?v={{ static_v }}">
+{% endblock %}
+
+{% block content %}
+<section class="login-container">
+    <h1><i class="fas fa-lock"></i> Admin</h1>
+
+    {% if error %}
+    <p class="login-error">{{ error }}</p>
+    {% endif %}
+
+    <form class="login-form" method="post" action="/admin/login">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required autofocus autocomplete="username">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password">
+
+        <button class="btn btn-primary" type="submit">Sign in</button>
+    </form>
+</section>
+{% endblock %}

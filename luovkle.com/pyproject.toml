@@ -1,0 +1,43 @@
+[project]
+name = "luovkle-com"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.14.0",
+    "fastapi[standard-no-fastapi-cloud-cli]>=0.139.0",
+    "markdown>=3.9",
+    "pygments>=2.19.2",
+    "pyyaml>=6.0.3",
+    "rich>=14.1.0",
+]
+
+[dependency-groups]
+build = [
+    "pillow>=11.3.0",
+]
+dev = [
+    "djlint>=1.36.4",
+    "prek>=0.3.10",
+    "ruff>=0.14.1",
+    "ty>=0.0.1a23",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG001", # unused arguments in functions
+    "T201",   # print statements are not allowed
+]
+
+[tool.djlint]
+profile="jinja"
+indent=2
+preserve_blank_lines=true
+close_void_tags=true
+max_line_length=88

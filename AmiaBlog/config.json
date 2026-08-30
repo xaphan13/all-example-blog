@@ -1,0 +1,27 @@
+{
+  "site_settings": {
+    "title": "AmiaBlog",
+    "description": "A simple blog made with FastAPI & MDUIv2",
+    "keywords": "amiablog, blog, fastapi, jinja2",
+    "site_url": null,
+    "color_scheme": "DDAACC",
+    "hljs_languages": [
+      "python",
+      "javascript",
+      "rust"
+    ]
+  },
+  "copyright": {
+    "name": "CC-BY-SA 4.0",
+    "refer": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+  },
+  "friend_links": [
+    {
+      "name": "AmiaBlog Github",
+      "url": "https://github.com/0x24a/AmiaBlog",
+      "description": "AmiaBlog's Github repository"
+    }
+  ],
+  "site_language": "en",
+  "search_method": "jieba"
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Diego Villegas{% endblock %}</title>
+    <meta name="description" content="{% block description %}Portfolio and blog of Diego Villegas. Articles about programming, Linux and Machine Learning.{% endblock %}">
+
+    {# OpenGraph / Twitter para compartir en redes; self.title() y
+       self.description() reutilizan el contenido de los bloques de arriba #}
+    <meta property="og:site_name" content="diegolonio">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{{ self.title() }}">
+    <meta property="og:description" content="{{ self.description() }}">
+    <meta property="og:image" content="{% block og_image %}{{ base_url }}/static/img/perfil.jpg{% endblock %}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ self.title() }}">
+    <meta name="twitter:description" content="{{ self.description() }}">
+
+    <link rel="stylesheet" href="/static/css/base.css?v={{ static_v }}">
+
+    <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg">
+    <link rel="alternate icon" href="/static/img/favicon.svg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper {% block wrapper_class %}{% endblock %}">
+
+        <header>
+            <div class="logo">
+                <a href="/"><i class="fas fa-terminal"></i>diegolonio</a>
+            </div>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">home</a></li>
+                    <li><a href="/about">about</a></li>
+                    <li><a href="/search">search</a></li>
+                </ul>
+
+                <div class="nav-separator"></div>
+
+                <div class="nav-socials">
+                    <a href="https://github.com/diegolonio" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/diegolonio" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:diego.apoloniov@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <span>© 2026 diegolonio</span>
+        </footer>
+    </div>
+</body>
+</html>

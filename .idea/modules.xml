@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/0_26_MY_blog.iml" filepath="$PROJECT_DIR$/.idea/0_26_MY_blog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/amiablog.iml" filepath="$PROJECT_DIR$/.idea/amiablog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/diegolonio.iml" filepath="$PROJECT_DIR$/.idea/diegolonio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fastAPIuser-suren.iml" filepath="$PROJECT_DIR$/.idea/fastAPIuser-suren.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fastapi-htmx-starter.iml" filepath="$PROJECT_DIR$/.idea/fastapi-htmx-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/habtnpmfastapijinjademo.iml" filepath="$PROJECT_DIR$/.idea/habtnpmfastapijinjademo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/luovkle-com.iml" filepath="$PROJECT_DIR$/.idea/luovkle-com.iml" />
+    </modules>
+  </component>
+</project>

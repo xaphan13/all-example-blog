@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}#{{ tag.name }} | Diego Villegas{% endblock %}
+{% block description %}Posts tagged #{{ tag.name }} on diegolonio.{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/static/css/home.css?v={{ static_v }}">
+<link rel="stylesheet" href="/static/css/search.css?v={{ static_v }}">
+{% endblock %}
+
+{% block content %}
+<section class="tag-page">
+    <header class="listing-header">
+        <h1>#{{ tag.name }}</h1>
+        <p class="listing-subtitle">
+            {{ posts | length }} post{{ "s" if posts | length != 1 }} tagged
+        </p>
+    </header>
+
+    {% if posts %}
+    {% include "_post_cards.html" %}
+    {% else %}
+    <p class="empty-note">No posts with this tag yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
